@@ -27,7 +27,7 @@
             // Shuffle players for the current inning
             shuffle($players);
 
-            // Shuffle positions for the current inning
+            // Determine available positions for the current inning
             $availablePositions = $positions;
 
             // Assign players to positions for the current inning
