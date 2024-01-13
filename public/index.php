@@ -16,7 +16,7 @@
         $infield = ['Pitcher', 'Catcher', '1st', '2nd', 'SS', '3rd'];
         $outfield = ['LF', 'CLF', 'CF', 'CRF', 'RF'];
 
-        // Choose positions based on number of players
+        // Set positions based on number of players
         switch (count($players)) {
             case 6:
                 $positions = $positions6;
@@ -40,36 +40,39 @@
                 $positions = $positions6;
         }
 
-        // Initialize an empty team array
+        // Create an empty team array
         $team = [];
 
         // Create an array to keep track of player positions
         $playerPositions = array_fill_keys($players, []);
 
-        // Play 6 innings
+        // play 6 innings
         $innings = 6;
+        
+        // For each inning assign players to a position
         for ($inning = 1; $inning <= $innings; $inning++) {
-            // Shuffle players for the current inning
-            shuffle($players);
-
-            // Determine available positions for the current inning
-            $availablePositions = $positions;
-
-            // Assign players to positions for the current inning
+            
+            //assign players to positions
             $team[$inning] = [];
 
+            // Set available positions for the current inning
+            $availablePositions = $positions;
+
+            // Each inning assign each player to a new position
             foreach ($players as $player) {
+
                 // Find a position that the player has not played before in this game
-                $availablePlayerPositions = array_diff($availablePositions, $playerPositions[$player]);
+                $availablePlayerPositions = array_diff($positions, $playerPositions[$player]);
                 $position = array_shift($availablePlayerPositions);
 
                 // Assign the player to the position for the current inning
                 $team[$inning][$player] = $position;
-                $playerPositions[$player][] = $position;
 
                 // Remove the assigned position from available positions
-                $availablePositions = array_values(array_diff($availablePositions, [$position]));
+                $positions = array_values(array_diff($positions, [$position]));
+
             }
+
         }
 
         // Output the randomized team for each inning
@@ -79,8 +82,12 @@
             foreach ($players as $player => $position) {
                 echo "<p>$player: $position</p>\n";
             }
-            echo "\n</div>";
+            echo "</div>\n";
         }
+
+
+
+
         ?>
     </body>
 </html>
